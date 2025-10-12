@@ -3,7 +3,18 @@
 **Environmental Compliance Leader & AI Systems Developer**  
 Simi Valley, CA | [guzman.danield@outlook.com](mailto:guzman.danield@outlook.com)
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/daniel-guzman-857a66388/)
+# Daniel Guzman  
+**Environmental Compliance Leader & AI Systems Developer**  
+Simi Valley, CA | guzman.danield@outlook.com  
+
+[![Microsoft Learn](https://img.shields.io/badge/Microsoft_Learn-Level_8-blue?style=for-the-badge&logo=microsoft&labelColor=111111)](https://learn.microsoft.com/en-us/users/DanielGuzman-2135/)
+[![ARCSEC Founder](https://img.shields.io/badge/ARCSEC-Founder-black?style=for-the-badge&logo=lock&labelColor=111111)](https://dguzman-stormintel.github.io/arcsec_protocols/)
+[![Stormwater Intelligence](https://img.shields.io/badge/Stormwater_Intelligence-Program_Lead-teal?style=for-the-badge&logo=rainmeter&labelColor=111111)](https://github.com/dguzman-stormintel/Stormwater-Intelligence-Program-)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile_Active-blue?style=for-the-badge&logo=linkedin&labelColor=111111)](https://linkedin.com/in/daniel-guzman-857a66388)
+[![GitHub](https://img.shields.io/badge/GitHub-dguzman--stormintel-gray?style=for-the-badge&logo=github&labelColor=111111)](https://github.com/dguzman-stormintel)
+
+
+
 
 ---
 
