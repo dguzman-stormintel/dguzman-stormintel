@@ -1,8 +1,3 @@
-# Daniel Guzman
-
-**Environmental Compliance Leader & AI Systems Developer**  
-Simi Valley, CA | [guzman.danield@outlook.com](mailto:guzman.danield@outlook.com)
-
 # Daniel Guzman  
 **Environmental Compliance Leader & AI Systems Developer**  
 Simi Valley, CA | guzman.danield@outlook.com  
