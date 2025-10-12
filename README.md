@@ -9,7 +9,7 @@ Simi Valley, CA | [guzman.danield@outlook.com](mailto:guzman.danield@outlook.com
 
 ## About
 
-I am an accomplished environmental compliance professional and artificial intelligence systems developer with more than seven years of experience in stormwater treatment, remediation, and hazardous waste management for federally regulated projects. My expertise bridges field operations, regulatory compliance, and advanced technology, including machine learning, cloud platforms, and 3D geospatial visualization.
+An accomplished environmental compliance professional and artificial intelligence systems developer with more than seven years of experience in stormwater treatment, remediation, and hazardous waste management for federally regulated projects. My expertise bridges field operations, regulatory compliance, and advanced technology, including machine learning, cloud platforms, and 3D geospatial visualization.
 
 As the founder of the Stormwater Intelligence Program, I specialize in developing solutions that integrate AI with environmental compliance processes—enhancing documentation, automating workflows, and improving regulatory planning. My work emphasizes data-driven decision-making, operational excellence, and the advancement of sustainable environmental practices.
 
