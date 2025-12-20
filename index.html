@@ -1,351 +1,333 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stormwater Intelligence - Automate Environmental Compliance</title>
-    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <title>Stormwater Intelligence | Environmental Insight</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Three.js for the 3D Earth simulation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Custom Tailwind Configuration for Professional Tech Vibe */
-        :root {
-            --storm-blue: #0A4C84;
-            --storm-light: #F0F9FF;
-            --storm-accent: #2563EB;
-        }
+        body { font-family: 'Inter', sans-serif; }
+        .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        #globe-container canvas { border-radius: 1.5rem; width: 100% !important; height: 100% !important; }
     </style>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'storm-blue': 'var(--storm-blue)',
-                        'storm-light': 'var(--storm-light)',
-                        'storm-accent': 'var(--storm-accent)',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0', transform: 'translateY(10px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                    },
-                    animation: {
-                        fadeIn: 'fadeIn 0.6s ease-out forwards',
-                    }
-                }
-            }
-        }
-    </script>
 </head>
-<body class="font-sans text-gray-800 bg-white">
+<body class="bg-[#FDFDFD] text-[#1A2E2A]">
 
-    <!-- Header / Navigation (Simple) --><header class="sticky top-0 z-10 bg-white shadow-md">
-        <div class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-extrabold text-storm-blue">StormGPT</a>
-            <nav class="hidden md:flex space-x-6 text-sm font-medium">
-                <a href="#problem" class="hover:text-storm-accent transition">The Problem</a>
-                <a href="#solution" class="hover:text-storm-accent transition">Technology</a>
-                <a href="#credentials" class="hover:text-storm-accent transition">Trust</a>
-                <a href="#contact" class="px-3 py-1 bg-storm-accent text-white rounded-lg hover:bg-blue-700 transition shadow-lg">Request Demo</a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- SECTION 1: HERO --><section id="hero" class="relative overflow-hidden min-h-screen flex items-center bg-gray-900 text-white"
-        style="background-image: linear-gradient(135deg, #0f172a 0%, #0c4a6e 100%);">
-        <!-- Removed the distracting background image with text --><div class="absolute inset-0 opacity-20"
-            style="background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0) 70%);">
-        </div>
-
-        <div class="container mx-auto px-6 py-24 relative z-0 text-center">
-            <p class="text-xl font-semibold text-storm-light mb-4 animate-[fadeIn_1s_ease-out_forwards]">STORMWATER INTELLIGENCE</p>
-            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight tracking-tight mb-6 animate-[fadeIn_1.2s_ease-out_forwards]">
-                Automate 4 weeks of compliance work in seconds
-            </h1>
-            <h2 class="text-2xl md:text-3xl text-gray-300 mb-12 animate-[fadeIn_1.4s_ease-out_forwards]">
-                The First Operational Large World Environmental Model
-            </h2>
-            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6 animate-[fadeIn_1.6s_ease-out_forwards]">
-                <a href="#contact" class="px-8 py-3 bg-storm-accent text-white font-bold text-lg rounded-xl shadow-2xl hover:bg-blue-700 transition transform hover:scale-105">
-                    Request Demo
-                </a>
-                <a href="#video-demo" class="px-8 py-3 bg-gray-700 text-white font-bold text-lg rounded-xl shadow-lg hover:bg-gray-600 transition transform hover:scale-105">
-                    Watch Technology Demo
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 2: THE PROBLEM --><section id="problem" class="py-16 md:py-24 bg-white">
-        <div class="container mx-auto px-6 max-w-4xl text-center">
-            <h2 class="text-4xl font-extrabold text-red-700 mb-6">Environmental Compliance is Broken.</h2>
-            <p class="text-xl text-gray-600 mb-10">
-                The current process is plagued by complexity, delays, and risk, hindering critical infrastructure projects.
-            </p>
-            <div class="space-y-8 md:space-y-0 md:flex md:space-x-8 text-left">
-                <div class="p-6 border border-gray-200 rounded-xl shadow-lg bg-white flex-1 transition hover:shadow-xl">
-                    <p class="text-3xl font-bold text-storm-blue mb-2">2-4 Weeks</p>
-                    <p class="text-gray-600">Standard compliance document preparation often takes multiple specialists weeks of manual effort.</p>
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
+        <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+            <div class="flex items-center gap-2 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <div class="bg-[#2D5A4C] p-2 rounded-lg transition-transform group-hover:scale-105">
+                    <!-- Inline SVG Droplet -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
                 </div>
-                <div class="p-6 border border-gray-200 rounded-xl shadow-lg bg-white flex-1 transition hover:shadow-xl">
-                    <p class="text-3xl font-bold text-storm-blue mb-2">Manual Data</p>
-                    <p class="text-gray-600">Reliance on manually collecting and reconciling data from NOAA, EPA, USGS, and NASA sources.</p>
-                </div>
-                <div class="p-6 border border-gray-200 rounded-xl shadow-lg bg-white flex-1 transition hover:shadow-xl">
-                    <p class="text-3xl font-bold text-red-600 mb-2">High Legal Risk</p>
-                    <p class="text-gray-600">Errors in documentation lead to massive fines, project delays, and legal exposure.</p>
+                <div class="flex flex-col">
+                    <span class="text-xl font-bold tracking-tight text-[#1A2E2A] leading-none uppercase">STORMWATER</span>
+                    <span class="text-[10px] font-bold text-[#2D5A4C] tracking-[0.2em] leading-none mt-1 uppercase">INTELLIGENCE</span>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- SECTION 3: THE SOLUTION --><section id="solution" class="py-16 md:py-24 bg-storm-light">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-4xl font-extrabold text-storm-blue mb-12">
-                Meet StormGPT — The First Operational Large World Environmental Model
-            </h2>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="p-8 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300">
-                    <h3 class="text-xl font-bold mb-3 text-storm-accent">Federal Data Fusion</h3>
-                    <p class="text-gray-600">Real-time integration of NOAA, EPA, USGS, NASA, and FEMA data feeds into a single operational model.</p>
-                </div>
-                <div class="p-8 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300">
-                    <h3 class="text-xl font-bold mb-3 text-storm-accent">3D Geospatial Intelligence</h3>
-                    <p class="text-gray-600">AI-controlled, intuitive 3D Earth visualization for unparalleled site analysis and impact assessment.</p>
-                </div>
-                <div class="p-8 bg-white rounded-xl shadow-xl hover:shadow-2xl transition duration-300">
-                    <h3 class="text-xl font-bold mb-3 text-storm-accent">ARCSEC Verification</h3>
-                    <p class="text-gray-600">Compliance documents are generated with cryptographic verification for maximum legal defensibility.</p>
-                </div>
+            
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#solutions" class="text-xs font-bold uppercase tracking-widest text-[#4A5D59] hover:text-[#2D5A4C] transition-colors">Our Solutions</a>
+                <a href="#why-us" class="text-xs font-bold uppercase tracking-widest text-[#4A5D59] hover:text-[#2D5A4C] transition-colors">Why Us</a>
+                <a href="#approach" class="text-xs font-bold uppercase tracking-widest text-[#4A5D59] hover:text-[#2D5A4C] transition-colors">Approach</a>
             </div>
-        </div>
-    </section>
 
-    <!-- SECTION 4: HOW IT WORKS (The Technology) --><section id="how-it-works" class="py-16 md:py-24 bg-white">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-4xl font-extrabold text-gray-900 mb-12">
-                Compliance in 4 Steps. Minutes, Not Weeks.
-            </h2>
-
-            <div class="relative flex flex-col items-center">
-                <!-- Visual Timeline (Desktop) --><div class="hidden md:block absolute top-1/4 left-0 right-0 h-1 bg-storm-blue opacity-20"></div>
-
-                <div class="grid md:grid-cols-4 gap-10 md:gap-4 w-full">
-                    <!-- Step 1: Ingest Data --><div class="flex flex-col items-center text-center relative md:pt-10">
-                        <div class="w-12 h-12 flex items-center justify-center rounded-full bg-storm-accent text-white font-bold text-xl mb-4 shadow-xl border-4 border-white">1</div>
-                        <h3 class="text-xl font-semibold mb-2 text-storm-blue">Real-Time Data Ingestion</h3>
-                        <p class="text-gray-600">AI pulls live data from 6 federal sources (NOAA, EPA, etc.) specific to your project site.</p>
-                    </div>
-
-                    <!-- Step 2: Analyze Requirements --><div class="flex flex-col items-center text-center relative md:pt-10">
-                        <div class="w-12 h-12 flex items-center justify-center rounded-full bg-storm-accent text-white font-bold text-xl mb-4 shadow-xl border-4 border-white">2</div>
-                        <h3 class="text-xl font-semibold mb-2 text-storm-blue">Contextual Analysis</h3>
-                        <p class="text-gray-600">StormGPT analyzes jurisdiction, permit types, and regulatory context (443+ documents).</p>
-                    </div>
-
-                    <!-- Step 3: Generate Reports --><div class="flex flex-col items-center text-center relative md:pt-10">
-                        <div class="w-12 h-12 flex items-center justify-center rounded-full bg-storm-accent text-white font-bold text-xl mb-4 shadow-xl border-4 border-white">3</div>
-                        <h3 class="text-xl font-semibold mb-2 text-storm-blue">Instant Document Generation</h3>
-                        <p class="text-gray-600">Generates legally defensible SWPPPs, Notice of Intents, and compliance reports instantly.</p>
-                    </div>
-
-                    <!-- Step 4: Deliver & Verify --><div class="flex flex-col items-center text-center relative md:pt-10">
-                        <div class="w-12 h-12 flex items-center justify-center rounded-full bg-storm-accent text-white font-bold text-xl mb-4 shadow-xl border-4 border-white">4</div>
-                        <h3 class="text-xl font-semibold mb-2 text-storm-blue">Secure Delivery</h3>
-                        <p class="text-gray-600">Delivered instantly to mobile, verified by ARCSEC Protocol for tamper-proof records.</p>
-                    </div>
+            <div class="flex items-center gap-4">
+                <div class="hidden sm:block text-[10px] font-bold text-[#2D5A4C] uppercase tracking-widest bg-[#E8F5E9] px-4 py-2 rounded-full">
+                    dguzman@stormintel.net
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 5: KEY CAPABILITIES (Feature Grid) --><section id="capabilities" class="py-16 md:py-24 bg-storm-light">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-4xl font-extrabold text-storm-blue mb-12">
-                Unrivaled Capabilities
-            </h2>
-
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Card 1 --><div class="p-6 bg-white rounded-xl shadow-lg border-b-4 border-storm-accent">
-                    <h3 class="text-xl font-bold mb-2 text-storm-accent">Real-Time Federal Data Integration</h3>
-                    <p class="text-gray-600 text-sm">Synchronized with NOAA, EPA, USGS, NASA, and FEMA feeds 24/7 for absolute accuracy.</p>
-                </div>
-                <!-- Card 2 --><div class="p-6 bg-white rounded-xl shadow-lg border-b-4 border-storm-accent">
-                    <h3 class="text-xl font-bold mb-2 text-storm-accent">3D Geospatial Intelligence</h3>
-                    <p class="text-gray-600 text-sm">Visualize site conditions, runoff, and environmental impacts with an AI-controlled 3D model.</p>
-                </div>
-                <!-- Card 3 --><div class="p-6 bg-white rounded-xl shadow-lg border-b-4 border-storm-accent">
-                    <h3 class="text-xl font-bold mb-2 text-storm-accent">99.9% Time Reduction</h3>
-                    <p class="text-gray-600 text-sm">Transform four weeks of manual compliance work into defensible documents generated in seconds.</p>
-                </div>
-                <!-- Card 4 --><div class="p-6 bg-white rounded-xl shadow-lg border-b-4 border-storm-accent">
-                    <h3 class="text-xl font-bold mb-2 text-storm-accent">Cryptographically Verified</h3>
-                    <p class="text-gray-600 text-sm">Every report is protected by the ARCSEC Protocol, guaranteeing legal integrity and audit readiness.</p>
-                </div>
-                <!-- Card 5 --><div class="p-6 bg-white rounded-xl shadow-lg border-b-4 border-storm-accent">
-                    <h3 class="text-xl font-bold mb-2 text-storm-accent">Mobile Command & Control</h3>
-                    <p class="text-gray-600 text-sm">Access, generate, and submit documents from any location via a secure, mobile-optimized interface.</p>
-                </div>
-                <!-- Card 6 --><div class="p-6 bg-white rounded-xl shadow-lg border-b-4 border-storm-accent">
-                    <h3 class="text-xl font-bold mb-2 text-storm-accent">Federally Registered & Compliant</h3>
-                    <p class="text-gray-600 text-sm">Trusted by federal contractors and engineered to exceed current regulatory standards.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 6: USE CASES (Who It's For) --><section id="use-cases" class="py-16 md:py-24 bg-white">
-        <div class="container mx-auto px-6 text-center max-w-5xl">
-            <h2 class="text-4xl font-extrabold text-gray-900 mb-12">
-                Who StormGPT Is For
-            </h2>
-            <div class="grid md:grid-cols-2 gap-8 text-left">
-                <div class="p-6 bg-gray-50 rounded-xl border border-gray-200">
-                    <h3 class="text-2xl font-bold text-storm-blue mb-2">Federal Contractors</h3>
-                    <p class="text-gray-700">Rapidly generate verified NPDES/CGP documentation required by the EPA, NOAA, and Army Corps of Engineers.</p>
-                </div>
-                <div class="p-6 bg-gray-50 rounded-xl border border-gray-200">
-                    <h3 class="text-2xl font-bold text-storm-blue mb-2">Environmental Consultants</h3>
-                    <p class="text-gray-700">Firms like AECOM, Jacobs, and Tetra Tech use StormGPT to drastically cut analysis time and boost client efficiency.</p>
-                </div>
-                <div class="p-6 bg-gray-50 rounded-xl border border-gray-200">
-                    <h3 class="text-2xl font-bold text-storm-blue mb-2">Construction Companies</h3>
-                    <p class="text-gray-700">Ensure continuous compliance on job sites, avoiding costly stop-work orders and fines during active construction.</p>
-                </div>
-                <div class="p-6 bg-gray-50 rounded-xl border border-gray-200">
-                    <h3 class="text-2xl font-bold text-storm-blue mb-2">State Agencies</h3>
-                    <p class="text-gray-700">Departments like CalTrans and Water Boards leverage the model for real-time risk assessment and permit validation.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 7: FEDERAL CREDENTIALS (Trust Section) --><section id="credentials" class="py-16 md:py-20 bg-gray-900 text-white">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl font-extrabold text-storm-light mb-10">
-                Built for Trust, Backed by Compliance.
-            </h2>
-            <div class="flex flex-wrap justify-center items-center space-x-4 md:space-x-12 text-lg font-medium">
-                <div class="py-2 px-4 rounded-lg bg-gray-800 my-2">
-                    SAM.gov Registered
-                </div>
-                <div class="py-2 px-4 rounded-lg bg-gray-800 my-2">
-                    UEI: <span class="font-mono text-yellow-400">SZ14MN3H7J59</span>
-                </div>
-                <div class="py-2 px-4 rounded-lg bg-gray-800 my-2">
-                    ARCSEC Protocol Protected
-                </div>
-                <div class="py-2 px-4 rounded-lg bg-gray-800 my-2">
-                    CAGE Code: Pending
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 8: PROOF (Stats) --><section id="proof" class="py-16 md:py-24 bg-white">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-4xl font-extrabold text-gray-900 mb-12">
-                Unmatched Performance Metrics
-            </h2>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="p-6 bg-storm-light rounded-xl shadow-lg border-t-4 border-storm-blue">
-                    <p class="text-5xl font-extrabold text-storm-blue">Seconds</p>
-                    <p class="text-gray-700 mt-2">SWPPP prep time (vs. 4 weeks manual)</p>
-                </div>
-                <div class="p-6 bg-storm-light rounded-xl shadow-lg border-t-4 border-storm-blue">
-                    <p class="text-5xl font-extrabold text-storm-blue">6+</p>
-                    <p class="text-gray-700 mt-2">Federal Data Sources Integrated Simultaneously</p>
-                </div>
-                <div class="p-6 bg-storm-light rounded-xl shadow-lg border-t-4 border-storm-blue">
-                    <p class="text-5xl font-extrabold text-storm-blue">443</p>
-                    <p class="text-gray-700 mt-2">Regulatory Documents in Knowledge Base</p>
-                </div>
-                <div class="p-6 bg-storm-light rounded-xl shadow-lg border-t-4 border-storm-blue">
-                    <p class="text-5xl font-extrabold text-storm-blue">100%</p>
-                    <p class="text-gray-700 mt-2">Mobile-Accessible and Globally Operable</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 9: VIDEO DEMO (Optional) --><section id="video-demo" class="py-16 md:py-24 bg-gray-100">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-4xl font-extrabold text-gray-900 mb-10">See StormGPT in Action</h2>
-            <!-- Placeholder for Embedded Demo Video --><div class="w-full max-w-4xl mx-auto aspect-video bg-gray-700 rounded-xl shadow-2xl flex items-center justify-center p-8">
-                <div class="text-white text-center">
-                    <!-- Text placeholder for video area --><p class="text-3xl font-bold mb-3">[ VIDEO PLAYBACK AREA ]</p>
-                    <p class="text-xl font-semibold">Video Demo Placeholder</p>
-                    <p class="text-sm mt-1 text-gray-300">A demonstration of the StormGPT 3D Geospatial Intelligence interface would be embedded here.</p>
-                </div>
-            </div>
-            <a href="/analysis" class="mt-8 inline-block text-lg font-semibold text-storm-accent hover:text-blue-700 transition">
-                View the Full Analysis Dashboard →
-            </a>
-        </div>
-    </section>
-
-    <!-- SECTION 10: CONTACT/CTA --><section id="contact" class="py-16 md:py-24 bg-white">
-        <div class="container mx-auto px-6 text-center max-w-3xl">
-            <h2 class="text-4xl font-extrabold text-storm-blue mb-4">
-                Ready to Revolutionize Your Environmental Compliance?
-            </h2>
-            <p class="text-xl text-gray-600 mb-10">
-                Contact our team directly or schedule a live demonstration tailored to your projects.
-            </p>
-
-            <form class="space-y-6 p-8 bg-storm-light rounded-xl shadow-2xl">
-                <input type="text" placeholder="Your Name" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-storm-accent focus:border-storm-accent transition" required>
-                <input type="email" placeholder="Work Email" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-storm-accent focus:border-storm-accent transition" required>
-                <input type="text" placeholder="Company / Organization" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-storm-accent focus:border-storm-accent transition" required>
-                <textarea placeholder="How can StormGPT help your team?" rows="4" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-storm-accent focus:border-storm-accent transition"></textarea>
-                <button type="submit" class="w-full px-8 py-4 bg-storm-accent text-white font-bold text-xl rounded-xl hover:bg-blue-700 transition transform hover:scale-[1.01] shadow-lg">
-                    Schedule Demo
+                <button class="md:hidden p-2" onclick="toggleMobileMenu()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#1A2E2A]"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
                 </button>
-            </form>
+            </div>
+        </div>
 
-            <p class="mt-8 text-lg font-medium text-gray-700">
-                Or contact us directly: <a href="mailto:dguzman@stormintel.net" class="text-storm-blue hover:text-storm-accent font-semibold">dguzman@stormintel.net</a>
-            </p>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white shadow-xl py-6 px-6 flex flex-col gap-4">
+            <a href="#solutions" onclick="toggleMobileMenu()" class="text-sm font-bold uppercase tracking-widest text-[#4A5D59]">Our Solutions</a>
+            <a href="#why-us" onclick="toggleMobileMenu()" class="text-sm font-bold uppercase tracking-widest text-[#4A5D59]">Why Us</a>
+            <a href="#approach" onclick="toggleMobileMenu()" class="text-sm font-bold uppercase tracking-widest text-[#4A5D59]">Approach</a>
+            <div class="text-[10px] font-bold text-[#2D5A4C] uppercase tracking-widest">dguzman@stormintel.net</div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden">
+        <div class="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[600px] h-[600px] bg-[#E8F5E9] rounded-full blur-[120px] -z-10"></div>
+        
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="animate-fade-in">
+                <h1 class="text-4xl md:text-5xl font-bold text-[#1A2E2A] leading-[1.1] mb-6 tracking-tight">
+                    Next-Generation <span class="text-[#2D5A4C]">Stormwater Intelligence</span> & Analytics
+                </h1>
+                <p class="text-lg text-[#5C6F6B] leading-relaxed max-w-xl">
+                    We offer proprietary datasets, workflow automation, and deep insights through 3D Earth visualizations with live data integration.
+                </p>
+                <div class="mt-8 flex items-center gap-3">
+                    <div class="bg-[#1A2E2A] p-2 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    </div>
+                    <span class="text-sm font-bold text-[#1A2E2A] uppercase tracking-widest">dguzman@stormintel.net</span>
+                </div>
+            </div>
+
+            <div class="relative flex justify-center lg:justify-end animate-fade-in" style="animation-delay: 0.2s">
+                <div class="relative bg-white p-2 rounded-[2rem] shadow-2xl border border-[#F0F4F2] max-w-sm sm:max-w-md overflow-hidden group">
+                    <img src="https://raw.githubusercontent.com/dguzman-stormintel/dguzman-stormintel/main/Screenshot_2025-12-02_015702_1765107117918-BFhuxqHt.png" alt="Dashboard" class="w-full h-auto object-cover rounded-[1.5rem] group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#1A2E2A]/30 to-transparent rounded-[1.5rem] pointer-events-none"></div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- FOOTER --><footer class="bg-gray-900 text-gray-400 py-12">
-        <div class="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div>
-                <h4 class="text-white font-bold mb-4 text-lg">StormGPT</h4>
-                <p class="text-sm">The future of environmental compliance, delivered instantly.</p>
+    <!-- Feature Grid / Solutions -->
+    <section id="solutions" class="py-24 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-[#2D5A4C] text-xs font-bold uppercase tracking-[0.3em] mb-4">Our Solutions</h2>
+                <p class="text-3xl md:text-4xl font-bold text-[#1A2E2A] max-w-3xl mx-auto leading-tight">
+                    Beyond monitoring. We deliver advanced environmental tech and live data systems.
+                </p>
             </div>
-            <div>
-                <h4 class="text-white font-bold mb-4">Quick Links</h4>
-                <ul class="space-y-2 text-sm">
-                    <li><a href="#" class="hover:text-storm-accent transition">About Us</a></li>
-                    <li><a href="#solution" class="hover:text-storm-accent transition">Technology</a></li>
-                    <li><a href="#credentials" class="hover:text-storm-accent transition">Federal Registration</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-white font-bold mb-4">Legal & Trust</h4>
-                <ul class="space-y-2 text-sm">
-                    <li><a href="#" class="hover:text-storm-accent transition">Privacy Policy</a></li>
-                    <li><a href="#" class="hover:text-storm-accent transition">Terms of Service</a></li>
-                    <li><a href="#contact" class="hover:text-storm-accent transition">Contact</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-white font-bold mb-4">Contact Info</h4>
-                <p class="text-sm">Email: dguzman@stormintel.net</p>
-                <p class="text-sm mt-2">Location: Simi Valley, CA</p>
-                <p class="text-sm mt-2">UEI: <span class="text-yellow-400">SZ14MN3H7J59</span></p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Datasets -->
+                <div class="p-8 rounded-[2rem] border border-[#F0F4F2] hover:shadow-xl transition-all bg-[#F8FAF9] group">
+                    <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-[#2D5A4C] mb-6 shadow-sm group-hover:bg-[#2D5A4C] group-hover:text-white transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#1A2E2A] mb-3">Datasets</h3>
+                    <p class="text-sm text-[#5C6F6B] leading-relaxed">High-fidelity environmental data libraries tailored for infrastructure and drainage analysis.</p>
+                </div>
+
+                <!-- Automation -->
+                <div class="p-8 rounded-[2rem] border border-[#F0F4F2] hover:shadow-xl transition-all bg-[#F8FAF9] group">
+                    <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-[#2D5A4C] mb-6 shadow-sm group-hover:bg-[#2D5A4C] group-hover:text-white transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#1A2E2A] mb-3">Automation</h3>
+                    <p class="text-sm text-[#5C6F6B] leading-relaxed">Streamlined workflows that automate compliance checks, alerts, and recurring reporting tasks.</p>
+                </div>
+
+                <!-- Insights -->
+                <div class="p-8 rounded-[2rem] border border-[#F0F4F2] hover:shadow-xl transition-all bg-[#F8FAF9] group">
+                    <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-[#2D5A4C] mb-6 shadow-sm group-hover:bg-[#2D5A4C] group-hover:text-white transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M12 7v5l2 2"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#1A2E2A] mb-3">Insights</h3>
+                    <p class="text-sm text-[#5C6F6B] leading-relaxed">Predictive analytics that transform raw environmental readings into clear actionable strategies.</p>
+                </div>
+
+                <!-- 3D Earth Integration Card -->
+                <div class="p-1 rounded-[2rem] border border-[#2D5A4C]/20 hover:shadow-xl transition-all bg-[#1A2E2A] text-white flex flex-col h-full">
+                    <!-- Live Globe Visualization Container -->
+                    <div id="globe-container" class="w-full h-48 mb-4 relative overflow-hidden bg-black/20 rounded-[1.8rem]">
+                        <div class="absolute top-4 left-4 z-10 flex items-center gap-2">
+                            <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                            <span class="text-[8px] font-bold uppercase tracking-widest text-emerald-400">Live Simulation</span>
+                        </div>
+                    </div>
+                    <div class="px-7 pb-7">
+                        <h3 class="text-xl font-bold mb-3">3D Earth Integration</h3>
+                        <p class="text-sm text-white/70 leading-relaxed">Global-scale live data visualization mapping your assets in real-time geospatial environments.</p>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="container mx-auto px-6 mt-8 pt-6 border-t border-gray-800 text-center text-sm">
-            &copy; 2025 StormGPT. All rights reserved.
+    </section>
+
+    <!-- Why Us Section -->
+    <section id="why-us" class="py-24 px-6 bg-[#F8FAF9]">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-[#2D5A4C] text-xs font-bold uppercase tracking-[0.3em] mb-4">Why Us</h2>
+                    <p class="text-3xl font-bold text-[#1A2E2A] mb-8">Proprietary Tech. Simplified Results.</p>
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-white p-3 rounded-xl shadow-sm h-fit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#2D5A4C]"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-[#1A2E2A]">Evidence-Based Compliance</h4>
+                                <p class="text-sm text-[#5C6F6B]">Every report is anchored in hard data, reducing liability and ensuring total clarity.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-white p-3 rounded-xl shadow-sm h-fit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#2D5A4C]"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-[#1A2E2A]">Live Data Feeds</h4>
+                                <p class="text-sm text-[#5C6F6B]">Our platform integrates directly with live environmental sensors for minute-by-minute updates.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rounded-3xl overflow-hidden shadow-2xl relative group">
+                    <img src="https://raw.githubusercontent.com/dguzman-stormintel/dguzman-stormintel/main/1766053088899.jpg" alt="Field Sensor" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-[#2D5A4C]/10 group-hover:bg-transparent transition-colors"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Approach Section -->
+    <section id="approach" class="py-24 px-6 bg-[#1A2E2A] text-white rounded-[4rem] mx-4 mb-24">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="text-[#E8F5E9] text-xs font-bold uppercase tracking-[0.3em] mb-4">Our Approach</h2>
+                <p class="text-3xl font-bold">The Intelligence Framework</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="bg-white/5 backdrop-blur-sm p-8 rounded-3xl border border-white/10 group hover:bg-white/10 transition-all">
+                    <span class="text-4xl font-bold text-[#2D5A4C]/40 mb-4 block">01</span>
+                    <h4 class="text-xl font-bold mb-3">Identify</h4>
+                    <p class="text-xs text-white/60 leading-relaxed">Locating critical environmental stressors and asset parameters.</p>
+                </div>
+                <div class="bg-white/5 backdrop-blur-sm p-8 rounded-3xl border border-white/10 group hover:bg-white/10 transition-all">
+                    <span class="text-4xl font-bold text-[#2D5A4C]/40 mb-4 block">02</span>
+                    <h4 class="text-xl font-bold mb-3">Assemble</h4>
+                    <p class="text-xs text-white/60 leading-relaxed">Integrating live sensor feeds with proprietary datasets.</p>
+                </div>
+                <div class="bg-white/5 backdrop-blur-sm p-8 rounded-3xl border border-white/10 group hover:bg-white/10 transition-all">
+                    <span class="text-4xl font-bold text-[#2D5A4C]/40 mb-4 block">03</span>
+                    <h4 class="text-xl font-bold mb-3">Analyze</h4>
+                    <p class="text-xs text-white/60 leading-relaxed">Deploying automated insights to reveal patterns and risks.</p>
+                </div>
+                <div class="bg-white/5 backdrop-blur-sm p-8 rounded-3xl border border-white/10 group hover:bg-white/10 transition-all">
+                    <span class="text-4xl font-bold text-[#2D5A4C]/40 mb-4 block">04</span>
+                    <h4 class="text-xl font-bold mb-3">Deliver</h4>
+                    <p class="text-xs text-white/60 leading-relaxed">Live 3D dashboards and automated reports built for clarity.</p>
+                </div>
+            </div>
+
+            <div class="mt-24 text-center border-t border-white/10 pt-16">
+                <p class="text-xl font-medium text-white/80 max-w-3xl mx-auto mb-10 italic">
+                    "Stormwater Intelligence is designed around how environmental systems actually behave in real-time."
+                </p>
+                <div class="text-white text-xs font-bold uppercase tracking-widest bg-white/10 px-6 py-3 rounded-full inline-block">
+                    Inquire: dguzman@stormintel.net
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-20 px-6 bg-white border-t border-[#F0F4F2]">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex items-center gap-3">
+                <div class="bg-[#2D5A4C] p-2 rounded-lg text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
+                </div>
+                <div class="flex flex-col text-left">
+                    <span class="text-lg font-bold text-[#1A2E2A] uppercase leading-tight">STORMWATER INTELLIGENCE</span>
+                    <span class="text-[9px] font-bold text-[#2D5A4C] tracking-widest uppercase mb-1">Environmental Insight. Clear Decisions.</span>
+                    <div class="text-sm font-medium text-[#1A2E2A]">dguzman@stormintel.net</div>
+                </div>
+            </div>
+            <div class="text-center md:text-right">
+                <p class="text-xs font-bold text-[#1A2E2A] uppercase tracking-widest">@ Stormwater Intelligence LLC</p>
+                <p class="text-[10px] text-[#8BA19C] uppercase tracking-[0.2em] mt-1">© 2025 ALL RIGHTS RESERVED</p>
+            </div>
         </div>
     </footer>
 
+    <script>
+        // Navbar Scroll Logic
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('glass-nav', 'shadow-sm', 'py-3');
+                nav.classList.remove('py-6');
+            } else {
+                nav.classList.remove('glass-nav', 'shadow-sm', 'py-3');
+                nav.classList.add('py-6');
+            }
+        });
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // --- THREE.JS GLOBE SIMULATION ---
+        window.onload = function() {
+            const container = document.getElementById('globe-container');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            container.appendChild(renderer.domElement);
+
+            // Create Globe
+            const geometry = new THREE.SphereGeometry(2, 32, 32);
+            const material = new THREE.MeshPhongMaterial({
+                color: 0x2D5A4C,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.6
+            });
+            const globe = new THREE.Mesh(geometry, material);
+            scene.add(globe);
+
+            // Add inner core
+            const coreGeom = new THREE.SphereGeometry(1.9, 32, 32);
+            const coreMat = new THREE.MeshBasicMaterial({ color: 0x1A2E2A });
+            const core = new THREE.Mesh(coreGeom, coreMat);
+            scene.add(core);
+
+            // Add simulated data points (small glowing spheres)
+            const pointsGroup = new THREE.Group();
+            for(let i=0; i<15; i++) {
+                const pGeom = new THREE.SphereGeometry(0.05, 8, 8);
+                const pMat = new THREE.MeshBasicMaterial({ color: 0x10B981 });
+                const p = new THREE.Mesh(pGeom, pMat);
+                
+                // Random position on sphere
+                const phi = Math.acos(-1 + (2 * i) / 15);
+                const theta = Math.sqrt(15 * Math.PI) * phi;
+                p.position.setFromSphericalCoords(2.05, phi, theta);
+                pointsGroup.add(p);
+            }
+            globe.add(pointsGroup);
+
+            // Lighting
+            const light = new THREE.DirectionalLight(0xffffff, 1);
+            light.position.set(5, 3, 5);
+            scene.add(light);
+            scene.add(new THREE.AmbientLight(0x404040));
+
+            camera.position.z = 6;
+
+            function animate() {
+                requestAnimationFrame(animate);
+                globe.rotation.y += 0.005;
+                globe.rotation.x += 0.001;
+                renderer.render(scene, camera);
+            }
+
+            // Handle Resize
+            window.addEventListener('resize', () => {
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+                renderer.setSize(width, height);
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+            });
+
+            animate();
+        }
+    </script>
 </body>
 </html>
